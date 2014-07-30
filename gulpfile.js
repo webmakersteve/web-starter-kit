@@ -27,6 +27,7 @@ var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
 var pagespeed = require('psi');
 var reload = browserSync.reload;
+var nekyll = require('gulp-nekyll');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -74,6 +75,20 @@ gulp.task('fonts', function () {
     .pipe($.size({title: 'fonts'}));
 });
 
+// Create Templates From Directory
+gulp.task('templates', ['templates:process'], function () {
+  nekyll.build();
+});
+
+gulp.task('templates:process', function () {
+  return gulp.src(['app/templates/**/*.html'])
+    .pipe(nekyll.all({
+      layoutsDir: '_layouts',
+      partialsDir: '_includes',
+      postsDir: '_posts'
+    }))
+    .on('error', console.error.bind(console))
+})
 
 // Automatically Prefix CSS
 gulp.task('styles:css', function () {
