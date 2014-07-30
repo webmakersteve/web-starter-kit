@@ -77,7 +77,8 @@ gulp.task('fonts', function () {
 
 // Create Templates From Directory
 gulp.task('templates', ['templates:process'], function () {
-  nekyll.build();
+  return nekyll.build()
+    .pipe(gulp.dest('test/'));    
 });
 
 gulp.task('templates:process', function () {
