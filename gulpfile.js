@@ -78,7 +78,7 @@ gulp.task('fonts', function () {
 // Create Templates From Directory
 gulp.task('templates', ['templates:process'], function () {
   return nekyll.build()
-    .pipe(gulp.dest('app/'));    
+    .pipe(gulp.dest('app/'));
 });
 
 gulp.task('templates:process', function () {
@@ -181,6 +181,7 @@ gulp.task('serve', ['styles:components', 'styles:scss'], function () {
   });
 
   gulp.watch(['app/**/*.html'], reload);
+  gulp.watch(['app/templates/**/*.html'], ['templates', reload]);
   gulp.watch(['app/styles/**/*.scss'], ['styles:components', 'styles:scss']);
   gulp.watch(['{.tmp,app}/styles/**/*.css'], ['styles:css', reload]);
   gulp.watch(['app/scripts/**/*.js'], ['jshint']);
